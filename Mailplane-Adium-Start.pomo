@@ -1,0 +1,31 @@
+tell application "System Events"
+	if exists process "Adium" then
+		tell application "Adium"
+			set stati to every status where title is "Pomodoro"
+			if (count of stati) is 0 then
+				set pomodoro to make new status with properties {title:"Pomodoro", status type:away}
+			else
+				set pomodoro to item 1 of stati
+			end if
+			set status message of pomodoro to "I'll respond in $duration minutes"
+			set autoreply of pomodoro to "I'll respond in $duration minutes"
+			set the status of every account whose status type is available to pomodoro
+		end tell
+	end if
+	
+	if exists process "Mailplane" then
+		tell application "Mailplane"
+			set doNotDisturb to true
+		end tell
+	end if
+
+	if exists process "Twitterrific" then
+		tell application "Twitterrific" to quit
+	end if
+	
+	if exists process "Skype" then
+		tell application "Skype"
+			send command "set userstatus dnd" script name "pomodoro"
+		end tell
+	end if
+end tell

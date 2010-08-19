@@ -1,0 +1,19 @@
+tell application "System Events" 
+	if exists process "Adium" then tell application "Adium" to set the status of every account whose status type is away to the first status whose title is "Available"
+	
+	if exists process "Mailplane" then
+		tell application "Mailplane"
+			set doNotDisturb to false
+		end tell
+	end if
+
+	if not (exists process "Twitterrific") then
+		tell application "Twitterrific" to launch
+	end if
+	
+	if exists process "Skype" then
+		tell application "Skype"
+			send command "set userstatus online" script name "pomodoro"
+		end tell
+	end if
+end tell

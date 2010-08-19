@@ -1,0 +1,7 @@
+tell application "System Events" to if exists process "Adium" then
+	tell application "Adium"
+		set pomodoro to the first status where title is "Pomodoro"
+		set status message of pomodoro to "I'll respond in $time minutes"
+		set autoreply of pomodoro to "I'll respond in $time minutes"
+	end tell
+end if
